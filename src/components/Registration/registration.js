@@ -1,8 +1,10 @@
 import React from 'react';
 import Axios from 'axios';
+//import './registration.css';
 import {
-	Form, Button, Label, Input
-} from 'react-bootstrap';
+	Col, Row, Form, FormGroup, Label, Input 
+}from 'reactstrap';
+
 
 class Registration extends React.Component{
 	constructor(){
@@ -107,41 +109,49 @@ class Registration extends React.Component{
 
 	render(){
 		return(
-			<form onSubmit={this.SubmitHandler}>
-				  <div class="form-row">
-				    <div class="form-group col-md-6">
-				      <label>First Name</label>
-				      <input type="text" placeholder="Enter First Name" value={this.state.firstName} onChange={this.firstNameChangeHandler} />
-				      <p>{this.state.validationMessageFirstName}</p>
-				    </div>
-				    <div class="form-group col-md-6">
-				      <label>Last Name</label>
-				      <input type="text" placeholder="Enter Last Name" value={this.state.lastName} onchange={this.lastNameChangeHandler} />
-				      <p>{this.state.validationMessageLastName}</p>
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label>Mobile Number</label>
-				    <input type="text" placeholder="Enter mobile number" value={this.state.mobileNumber} onChange={this.mobileNumberChangeHandler} />
-				    <p>{this.state.validationMessageMobileNumber}</p>
-				  </div>
-				  <div class="form-group">
-				    <label>Email</label>
-				    <input type="email" placeholder="Enter email" value={this.state.email} onchange={this.emailChangeHandler} />
-				    <p>{this.state.validationMessageEmail} </p>
-				  </div>
-				  <div class="form-group">
-				    <label>Password</label>
-				    <input type="text" placeholder="Enter password" value={this.state.password} onChange={this.passwordChangeHandler} />
-				    <p>{this.state.validationMessagePassword}</p>
-				  </div>
-				  <div class="form-group">
-				    <label>Confirm Password</label>
-				    <input type="text" placeholder="Re-type password" value={this.state.cpassword} onChange={this.cpasswordChangeHandler} />
+			<Form onSubmit={this.SubmitHandler} className="registerForm">
+				<h5 className="Top">
+			    <strong>Sign up</strong>
+			  </h5>
+				<Row form>
+					<Col md={6}>
+					<FormGroup>
+						<Label>First Name</Label>
+						<Input type="text" placeholder="Enter First Name" value={this.state.firstName} onChange={this.firstNameChangeHandler} />
+				        <p>{this.state.validationMessageFirstName}</p>
+					</FormGroup>
+					</Col>
+					<Col md={6}>
+					<FormGroup>
+						<Label>Last Name</Label>
+						<Input type="text" placeholder="Enter Last Name" value={this.state.lastName} onchange={this.lastNameChangeHandler} />
+			 	        <p>{this.state.validationMessageLastName}</p>
+					</FormGroup>
+					</Col>
+				</Row>
+				<FormGroup>
+					<Label>Mobile Number</Label>
+					<Input type="text" placeholder="Enter mobile number" value={this.state.mobileNumber} onChange={this.mobileNumberChangeHandler} />
+				<p>{this.state.validationMessageMobileNumber}</p>
+				</FormGroup>
+				<FormGroup>
+						<Label>Email</Label>
+						<Input type="email" placeholder="Enter email" value={this.state.email} onchange={this.emailChangeHandler} />
+			 	<p>{this.state.validationMessageEmail} </p>
+				</FormGroup>
+				<FormGroup>
+					<Label>Password</Label>
+						<Input type="text" placeholder="Enter password" value={this.state.password} onChange={this.passwordChangeHandler} />
+				<p>{this.state.validationMessagePassword}</p>
+				</FormGroup>
+				<FormGroup>
+					<Label>Confirm Password</Label>
+					<Input type="text" placeholder="Confirm password" value={this.state.cpassword} onChange={this.cpasswordChangeHandler} />
 				    <p>{this.state.validationMessageConfirmPassword}</p>
-				  </div>
-				  <button type="submit" class="btn btn-primary">Register</button>
-				</form>
+				</FormGroup>
+				<button className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 design" type="submit">Register</button>
+    		</Form>
+		
 
 		)
 	}
