@@ -7,6 +7,8 @@ import {
 } from 'react-bootstrap';
 
 import Login from './components/Login/login.js'
+import Registration from './components/Registration/registration.js'
+import Footer from './components/Footer/footer.js';
 
 
 class Index extends React.Component {
@@ -18,7 +20,14 @@ class Index extends React.Component {
 		return(
 			<Container>
 			<div>
-			<Login />
+			<Router>
+				<Registration />
+			{/* <Login /> */}
+			{/* <Footer /> */}
+			<Switch>
+			<Route exact path="/register"><Registration /></Route>
+			</Switch>
+			</Router>
 			</div>
 			</Container>
 			)
