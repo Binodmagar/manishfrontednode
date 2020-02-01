@@ -1,14 +1,12 @@
 import React from 'react';
 import Axios from 'axios';
 import {
-	Form, Button, Label, Input
-}from 'react-bootstrap';
+	 Button, Form, FormGroup, Label, Input, FormText 
+}from 'reactstrap';
 
-import { 
-	BrowserRouter as Router, Switch , Link , Route 
-} 
-from 'react-router-dom';
+import './login.css';
 import Registration from '../Registration/registration.js'
+
 
 class Login extends React.Component{
 	constructor(){
@@ -62,38 +60,23 @@ class Login extends React.Component{
 
 	render(){
 		return(
-			<div class="container">
-			    <div class="row">
-			      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-			        <div class="card card-signin my-5">
-			          <div class="card-body">
-			            <h5 class="card-title text-center">Sign In</h5>
-			            <form class="form-signin" onSubmit={this.submitHandler}>
-			              <div class="form-label-group">
-			                <input type="email" value={this.state.email} onChange={this.emailChangeHandler} placeholder="Email address" required autofocus />
-			                <label for="inputEmail">Email address</label>
-			                <p>{this.state.validationEmail}</p>
-			              </div>
-
-			              <div class="form-label-group">
-			                <input type="password" value={this.state.password} onChange={this.passwordChangeHandler} placeholder="Password" required autofocus/>
-			                <label for="inputPassword">Password</label>
-			                <p>{this.state.validationPassword}</p>
-			              </div>
-			              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
-			         
-			              <button class="btn btn-lg btn-primary btn-block text-uppercase">Register An Account</button>
-			            </form>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
-			   {/* <Switch>
-			    	<Route exact path="/registration"><Registration /></Route>
-			    </Switch>*/}
-			
-			  </div>
-			)
+			<body>
+			<form className="form">
+			<h5 className="Top">
+			    <strong>Sign in</strong>
+			  </h5>
+			<FormGroup className= "design">
+		        <Label for="exampleEmail">Email</Label>
+		        <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+		      </FormGroup>
+		      <FormGroup className= "design">
+		        <Label  for="examplePassword">Password</Label>
+		        <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+		      </FormGroup>
+		        <button className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 design" type="submit">Login</button>
+			</form>
+			</body>
+		);
 	}
 }
 
