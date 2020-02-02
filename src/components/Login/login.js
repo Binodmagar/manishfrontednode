@@ -1,15 +1,15 @@
 import React from 'react';
 import Axios from 'axios';
 import {
-	 Button, Form, FormGroup, Label, Input, FormText 
-}from 'reactstrap';
-
+	Button, Form, FormGroup, Label, Input, FormText
+} from 'reactstrap';
 import './login.css';
 import Registration from '../Registration/registration.js'
+import { Link } from 'react-router-dom';
 
 
-class Login extends React.Component{
-	constructor(){
+class Login extends React.Component {
+	constructor() {
 		super()
 
 		this.state = {
@@ -22,18 +22,18 @@ class Login extends React.Component{
 	}
 
 	emailChangeHandler = (event) => {
-		this.setState({email: event.target.value});
-		if(event.target.value.length < 2){
-			this.setState({validationEmail: "Email must be more than two character!"});
-		}else{
-			this.setState({validationEmail: "Email is valid"});
+		this.setState({ email: event.target.value });
+		if (event.target.value.length < 2) {
+			this.setState({ validationEmail: "Email must be more than two character!" });
+		} else {
+			this.setState({ validationEmail: "Email is valid" });
 		}
 	}
 
 	passwordChangeHandler = (event) => {
-		this.setState({password: event.target.value});
-		if(event.target.value.length < 4){
-			this.setState({validationPassword: "Password must be more than 4 character"});
+		this.setState({ password: event.target.value });
+		if (event.target.value.length < 4) {
+			this.setState({ validationPassword: "Password must be more than 4 character" });
 		}
 	}
 
@@ -49,32 +49,33 @@ class Login extends React.Component{
 		}
 
 		Axios.post('http://localhost:3000/users', data, headers)
-		.then((response) => {
-			console.log(response.data);
-			localStorage.setIteam("user_token",response.data.userToken);
-		})
-		.catch((err) => {
-			console.log(err);
-		})
+			.then((response) => {
+				console.log(response.data);
+				localStorage.setIteam("user_token", response.data.userToken);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
 	}
 
-	render(){
-		return(
+	render() {
+		return (
 			<body>
-			<form className="form">
-			<h5 className="Top">
-			    <strong>Sign in</strong>
-			  </h5>
-			<FormGroup className= "design">
-		        <Label for="exampleEmail">Email</Label>
-		        <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
-		      </FormGroup>
-		      <FormGroup className= "design">
-		        <Label  for="examplePassword">Password</Label>
-		        <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
-		      </FormGroup>
-		        <button className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 design" type="submit">Login</button>
-			</form>
+				<form className="form">
+					<h5 className="Top">
+						<strong>Sign in</strong>
+					</h5>
+					<FormGroup className="design">
+						<Label for="exampleEmail">Email</Label>
+						<Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+					</FormGroup>
+					<FormGroup className="design">
+						<Label for="examplePassword">Password</Label>
+						<Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+					</FormGroup>
+					<button className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 design" type="submit">Login</button>
+					<p>Don't have account?<Link to='/register'>Register Here</Link></p>
+				</form>
 			</body>
 		);
 	}
