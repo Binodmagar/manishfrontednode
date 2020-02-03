@@ -60,23 +60,24 @@ class Login extends React.Component {
 
 	render() {
 		return (
-			<body>
+			<div className="signup-form">
 				<form className="form">
-					<h5 className="Top">
-						<strong>Sign in</strong>
-					</h5>
+					<h2>Register Here</h2>
 					<FormGroup className="design">
 						<Label for="exampleEmail">Email</Label>
-						<Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+						<Input type="email" placeholder="Email ....." value={this.state.email} onChange={this.emailChangeHandler} />
+						<p>{this.state.validationEmail} </p>
 					</FormGroup>
 					<FormGroup className="design">
 						<Label for="examplePassword">Password</Label>
-						<Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+						<Input type="password" placeholder="Password ...." value={this.state.password} onChange={this.passwordChangeHandler} />
+						<p>{this.state.validationPassword} </p>
 					</FormGroup>
 					<button className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 design" type="submit">Login</button>
-					<p>Don't have account?<Link to='/register'>Register Here</Link></p>
+					{/* <p>Don't have account?<Link to='/register'>Register Here</Link></p> */}
 				</form>
-			</body>
+				<div className="text-center">Don't have an account? <Link to='/register'>Register Here</Link></div>
+			</div>
 		);
 	}
 }
