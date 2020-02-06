@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import './login.css';
 import Registration from '../Registration/registration.js'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class Login extends React.Component {
@@ -16,7 +16,8 @@ class Login extends React.Component {
 			email: '',
 			password: '',
 			validationEmail: '',
-			validationPassword: ''
+			validationPassword: '',
+			redirect: false
 
 		}
 	}
@@ -34,10 +35,12 @@ class Login extends React.Component {
 		this.setState({ password: event.target.value });
 		if (event.target.value.length < 4) {
 			this.setState({ validationPassword: "Password must be more than 4 character" });
+		}else{
+			this.setState({ validationPassword: "Password is valid"});
 		}
 	}
 
-	submitHandler = (event) => {
+	SubmitHandler = (event) => {
 		event.preventDefault();
 
 		var headers = {
@@ -48,10 +51,11 @@ class Login extends React.Component {
 			password: this.state.password
 		}
 
-		Axios.post('http://localhost:3000/users', data, headers)
+		Axios.post('http://localhost:3002/users/login', data, headers)
 			.then((response) => {
 				console.log(response.data);
-				localStorage.setIteam("user_token", response.data.userToken);
+				localStorage.setItem("user_token", response.data.token);
+				this.setState({redirect:true});
 			})
 			.catch((err) => {
 				console.log(err);
@@ -59,17 +63,22 @@ class Login extends React.Component {
 	}
 
 	render() {
+		if(this.state.redirect){
+			return(
+				<Redirect to='/home' />
+			)
+		}
 		return (
 			<div className="signup-form">
-				<form className="form">
-					<h2>Register Here</h2>
+				<form onSubmit={this.SubmitHandler}>
+					<h2>Login Here</h2>
 					<FormGroup className="design">
-						<Label for="exampleEmail">Email</Label>
+						<Label>Email</Label>
 						<Input type="email" placeholder="Email ....." value={this.state.email} onChange={this.emailChangeHandler} />
 						<p>{this.state.validationEmail} </p>
 					</FormGroup>
 					<FormGroup className="design">
-						<Label for="examplePassword">Password</Label>
+						<Label>Password</Label>
 						<Input type="password" placeholder="Password ...." value={this.state.password} onChange={this.passwordChangeHandler} />
 						<p>{this.state.validationPassword} </p>
 					</FormGroup>
