@@ -1,15 +1,15 @@
 import React from 'react';
 import Axios from 'axios';
 import './registration.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {
 	Col, Row, Form, FormGroup, Label, Input
 } from 'reactstrap';
 
 
 class Registration extends React.Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 
 		this.state = {
 			firstName: '',
@@ -18,6 +18,7 @@ class Registration extends React.Component {
 			email: '',
 			password: '',
 			cpassword: '',
+			image: '',
 			validationMessageFirstName: '',
 			validationMessageLastName: '',
 			validationMessageMobileNumber: '',
@@ -26,6 +27,16 @@ class Registration extends React.Component {
 			validationMessageConfirmPassword: '',
 			redirect: false
 		}
+	}
+
+	handleFileSelected = (event) => {
+		this.setState({ image: event.target.files[0] })
+		//for image url
+		let reader = new FileReader();
+		reader.onloadend = () => {
+			this.setState({ imagePreviewUrl: reader.result });
+		}
+		reader.readAsDataURL(event.target.files[0])
 	}
 
 	firstNameChangeHandler = (event) => {
@@ -88,34 +99,55 @@ class Registration extends React.Component {
 			'Content-Type': 'application/json'
 		}
 
-		var data = {
-			firstName: this.state.firstName,
-			lastName: this.state.lastName,
-			mobileNumber: this.state.mobileNumber,
-			email: this.state.email,
-			password: this.state.password
-		}
-
-		Axios.post('http://localhost:3000/users', data, headers)
-			.then((response) => {
-				console.log(response.data.status);
-				if (res.status === 201) {
-					this.setState({ redirect: true });
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			})
+		const formdata = new FormData();
+		const imageName = this
+		.state
+		.image
+		.name
+		.toLowerCase();
+		formdata.append('imageFile', this.state.image, imageName);
+		Axios
+		.post('http://localhost:3002/upload', formdata)
+		.then(res => {
+			console.log(res);
+			var data = {
+				firstName: this.state.firstName,
+				lastName: this.state.lastName,
+				mobileNumber: this.state.mobileNumber,
+				email: this.state.email,
+				password: this.state.password,
+				image: 'imageFile-' + imageName,
+				redirect: false
+			}
+			
+	
+			Axios.post('http://localhost:3002/users/register', data, headers)
+				.then((response) => {
+					console.log(response.data.status);
+					if (res.status === "Register successfully!!") {
+						this.setState({redirect:true})
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				})			
+		})
+		console.log(this.state);	
 	}
 
 	render() {
+		if(this.state.redirect === true){
+			return(
+				<Redirect to="/"></Redirect>
+			)
+		}
 		return (
 			<div className="signup-form">
 				<Form onSubmit={this.SubmitHandler} className="registerForm">
 					<h2>
 						<strong>Sign up</strong>
 					</h2>
-					<p class="hint-text">Create your account. It's free and only takes a minute.</p>
+					<p className="hint-text">Create your account. It's free and only takes a minute.</p>
 					<Row form>
 						<Col md={6}>
 							<FormGroup>
@@ -152,6 +184,30 @@ class Registration extends React.Component {
 						<Input type="password" placeholder="Confirm password" value={this.state.cpassword} onChange={this.cpasswordChangeHandler} />
 						<p>{this.state.validationMessageConfirmPassword}</p>
 					</FormGroup>
+					<div className="input-group">
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="inputGroupFileAddon01">
+                                        Upload
+                                    </span>
+                                </div>
+                                <div className="custom-file">
+                                    <input
+
+                                        type="file"
+                                        // inputProps={{
+                                        //     accept: 'image/*'
+                                        // }}
+                                        onChange={this.handleFileSelected}
+                                        ref={fileInput => this.fileInput = fileInput}
+                                        className="custom-file-input"
+                                        id="inputGroupFile01"
+                                        aria-describedby="inputGroupFileAddon01"
+                                    />
+                                    <label className="custom-file-label" htmlFor="inputGroupFile01">
+                                        Choose file
+                                    </label>
+                                </div>
+                            </div>
 					<button className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 design" type="submit">Register</button>
 				</Form>
 				<div className="text-center">Already have an account?<Link to='/'>Sign in</Link></div>
