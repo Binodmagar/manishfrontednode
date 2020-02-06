@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
+	devtool:'inline-source-map',
 	entry:{
 		index:'./src/index.js'
 	},
@@ -26,6 +27,7 @@ module.exports = {
 		contentBase: path.join(__dirname,"public/"),
 		port:3001,
 		hot:true,
-		publicPath: "http://localhost:3000/dist/"
+		historyApiFallback: true,
+		publicPath: "http://localhost:3001/dist/"
 	}
 }
