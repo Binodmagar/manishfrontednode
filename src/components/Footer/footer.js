@@ -1,19 +1,28 @@
-// import React from 'react';
-// class Footer extends React.Component{
-//     constructor(){
-//         super()
+import React from 'react';
+import { Footer } from 'react-bootstrap';
+import './footer.css';
+class Footers extends React.Component{
+    constructor(){
+        super()
 
-//     }
+    }
 
-//     render(){
-//         return(
-//             <Footer>
-//             <div className="footer-copyright text-center py-3">© 2020 Copyright:
-//             <a href=""> BinodRana.com</a>
-//           </div>
-//           </Footer>
-//         )
-//     }
-// }
+    render(){
+        return(
+            <div className="d-flex flex-column">
+            <footer className="footer">
+                <div>
+                <a href="https://binodmagar.com">BinodRana</a>
+                <span> copyright &copy; 2020 Expense Manager | All right Reserved</span>
+                </div>
+                <div className="ml-auto">
+                <span>Powered by </span>
+                <a href="https://binodmagar.com">BinodM@gar</a>
+                </div>
+            </footer>
+            </div>
+        )
+    }
+}
 
-// export default Footer
+export default Footers
