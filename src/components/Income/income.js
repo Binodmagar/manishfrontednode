@@ -14,6 +14,7 @@ class Income extends React.Component {
         super()
 
         this.state = {
+            token: '',
             incomeName: '',
             incomePrice: '',
             incomeValueCategory: '',
@@ -26,7 +27,7 @@ class Income extends React.Component {
             incomeAccountChangeHandler: '',
             incomeDateChangeHandler: '',
             incomeNoteChangeHandler: '',
-            redirect: false
+            notLoggedIn: false
         }
     }
 
@@ -68,9 +69,9 @@ class Income extends React.Component {
     SubmitHandler = (event) => {
         event.preventDefault();
 
-        var headers = {
-            'Content-Type': 'application/json'
-        }
+        // var headers = {
+        //     'Content-Type': 'application/json'
+        // }
         var data = {
             incomeName: this.state.incomeName,
             incomePrice: this.state.incomePrice,
@@ -79,10 +80,11 @@ class Income extends React.Component {
             incomeDate: this.state.incomeDate,
             incomeNote: this.state.incomeNote
         }
-        Axios.post('http://localhost:3002/incomes', data, headers)
-            .then((res) => {
-                console.log(res.data.status);
-                if (res.status === 201) {
+        Axios.post('http://localhost:3002/incomes', {headers: { Authorization: 'Bearer ' + this.state.token }}, data)
+            .then((response) => {
+                alert("added success");
+                console.log(response.data.status);
+                if (response.status === 201) {
                     this.setState({ redirect: true })
                 }
 
@@ -91,6 +93,14 @@ class Income extends React.Component {
                 console.log(err);
 
             })
+    }
+
+    componentWillMount(){
+        if(localStorage.getItem('user_token')){
+            this.setState({token: localStorage.getItem('user_token')});
+        }else{
+            this.setState({notLoggedIn: true});
+        }
     }
 
     render() {
@@ -113,11 +123,10 @@ class Income extends React.Component {
                         </FormGroup>
                         <Label>Category:</Label><br />
                         <select value={this.state.incomeValueCategory} onChange={this.incomeCategoryChangeHandler} className="test">
-                            <option value="Salary">Food</option>
-                            <option value="Bonus">Health</option>
-                            <option value="Allowance">General Expense</option>
+                            <option value="Salary">Salary</option>
+                            <option value="Bonus">Bonus</option>
+                            <option value="Allowance">Allowance</option>
                         </select>
-
                         <br />
                         <label>Acount:</label><br />
                         <select value={this.state.incomeValueAccount} onChange={this.incomeAccountChangeHandler}>
@@ -125,11 +134,9 @@ class Income extends React.Component {
                             <option value="Cheque">Cheque</option>
                             <option value="Bank">Bank</option>
                         </select><br />
-
                         <p>Please select date</p>
                         <Input label="Date of expense" value={this.state.incomeDate} onChange={this.incomeDateChangeHandler} type="date" />
                         <FormGroup>
-
                             <Label>Note</Label>
                             <Input type="text" placeholder="Enter Note" value={this.state.incomeNote} onChange={this.incomeNoteChangeHandler} />
                             <p>{this.state.validationMessageNote}</p>
