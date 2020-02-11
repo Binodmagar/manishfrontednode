@@ -1,3 +1,7 @@
+
+
+@import url("https://use.fontawesome.com/releases/v5.0.11/css/all.css");
+
 .incomeForm{
     color: #999;
     /* color: burlywood; */
@@ -11,4 +15,51 @@
 
 .test{
     display: inline-block;
+}
+
+/* Show Income csss*/
+.showIncome{
+    color: #999;
+    /* color: burlywood; */
+    /* border-radius: 10px; */
+    border-color:  rgba(10, 238, 67, 0.3);
+	margin-bottom: 50px;
+	background: #f2f3f7;
+	/* box-shadow: 10px 20px 30px rgba(10, 238, 67, 0.3); */
+	padding: 30px;
+}
+
+h5{
+    font-size: 30px;
+    font-weight: bold;
+}
+h3{
+    text-align: center;
+    margin-bottom: 25px;
+
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+  }
+
+  button.fas.fa-plus.btn.btn-success.btn.btn-secondary {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 0px;
+    padding: 10px;
+}
+
+.showIncomeHeader{
+    background-color: rgb(18, 18, 238);
+    color: white;
+    /* margin: 5px; */
+    padding: 10px;
+    font-weight: bold;
 }
