@@ -11,7 +11,7 @@ import Footer from '../Footer/footer';
 class Expense extends React.Component {
 	constructor() {
 		super()
-		this.state = { value: 'Food' };
+		// this.state = { value: 'Food' };
 
 		this.state = {
 			expenseName: '',
@@ -163,7 +163,7 @@ class Expense extends React.Component {
 							<p>{this.state.validationMessageDescription}</p>
 						</FormGroup>
 
-						<button className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 design" type="submit">Add Expense</button>
+						<button className="btn btn-outline-danger btn-rounded btn-block my-4 waves-effect z-depth-0 design" type="submit">Add Expense</button>
 					</Form>
 				</div>
 				<Footer />
