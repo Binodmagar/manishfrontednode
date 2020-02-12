@@ -1,11 +1,12 @@
 import React from 'react';
 import Axios from 'axios';
 import {
-	Button, Form, FormGroup, Label, Input, FormText
+	Button, Form, FormGroup, Label, Input, Container, FormText
 } from 'reactstrap';
 import './login.css';
 import Registration from '../Registration/registration.js'
 import { Link, Redirect } from 'react-router-dom';
+import Footers from '../Footer/footer';
 
 
 class Login extends React.Component {
@@ -51,7 +52,7 @@ class Login extends React.Component {
 			password: this.state.password
 		}
 
-		Axios.post('http://localhost:3002/users/login', data, headers)
+		Axios.post('http://localhost:3003/users/login', data, headers)
 			.then((response) => {
 				console.log(response.data);
 				localStorage.setItem("user_token", response.data.token);
@@ -69,17 +70,18 @@ class Login extends React.Component {
 			)
 		}
 		return (
-			<div className="signup-form">
+			<Container>
+			<div className="login-form">
 				<form onSubmit={this.SubmitHandler}>
 					<h2>Login Here</h2>
 					<FormGroup className="design">
 						<Label>Email</Label>
-						<Input type="email" placeholder="Email ....." value={this.state.email} onChange={this.emailChangeHandler} />
+						<Input type="email" placeholder="Email ....." value={this.state.email} onChange={this.emailChangeHandler}  required/>
 						<p>{this.state.validationEmail} </p>
 					</FormGroup>
 					<FormGroup className="design">
 						<Label>Password</Label>
-						<Input type="password" placeholder="Password ...." value={this.state.password} onChange={this.passwordChangeHandler} />
+						<Input type="password" placeholder="Password ...." value={this.state.password} onChange={this.passwordChangeHandler} required/>
 						<p>{this.state.validationPassword} </p>
 					</FormGroup>
 					<button className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 design" type="submit">Login</button>
@@ -87,6 +89,8 @@ class Login extends React.Component {
 				</form>
 				<div className="text-center">Don't have an account? <Link to='/register'>Register Here</Link></div>
 			</div>
+			<Footers />
+			</Container>
 		);
 	}
 }

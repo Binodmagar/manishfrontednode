@@ -1,4 +1,7 @@
 
+.income{
+    margin-top: 5%;
+}
 
 @import url("https://use.fontawesome.com/releases/v5.0.11/css/all.css");
 
@@ -6,6 +9,7 @@
     color: #999;
     /* color: burlywood; */
     border-radius: 10px;
+    margin-top: 2%;
     border-color:  rgba(10, 238, 67, 0.3);
 	margin-bottom: 50px;
 	background: #f2f3f7;
@@ -18,6 +22,10 @@
 }
 
 /* Show Income csss*/
+
+.incomeTop{
+    margin-top: 5%;
+}
 .showIncome{
     color: #999;
     /* color: burlywood; */

@@ -3,22 +3,51 @@ import { Table, Container, Button } from 'reactstrap';
 import Footers from '../Footer/footer';
 import './income.css';
 import { Link } from 'react-router-dom';
+import Axios from 'axios';
 
 class ShowIncome extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            incomes: [],
+            token: ''
+            
+        }
     }
+
+    componentWillMount() {
+        if (localStorage.getItem('user_token')) {
+            this.setState({ token: localStorage.getItem('user_token') });
+        } else {
+            this.setState({ notLoggedIn: true });
+        }
+    }
+
+    componentDidMount() {
+        Axios.get('http://localhost:3003/incomes', { headers: { Authorization: 'Bearer ' + this.state.token } })
+            .then((response) => {
+                console.log(response.data);
+                
+                this.setState({
+                    incomes: response.data
+                })              
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+    
 
     render() {
         return (
-            <div>
+            <div className="incomeTop">
                 <h5>Incomes Reports</h5>
                 <hr></hr>
                 <Button className=" fas fa-plus btn btn-success"><Link to='/addIncome'>New transaction</Link></Button>
                 <div className="showIncomeHeader"><i className="far fa-chart-bar"></i>History of Incomes</div>
-                <Container className="showIncome">
-                    {/* <h3>History of Income</h3> */}
-                    <Table bordered>
+                <div className="table-responsive">
+                    <Table className="table table-bordered">
                         <thead>
                             <tr>
                                 <th>S.No.</th>
@@ -28,39 +57,28 @@ class ShowIncome extends Component {
                                 <th>Account</th>
                                 <th>Date</th>
                                 <th>Note</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Burger</td>
-                                <td>300</td>
-                                <td>Food</td>
-                                <td>Cash</td>
-                                <td>2020-02-11</td>
-                                <td>College Breakfast</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Recharge</td>
-                                <td>100</td>
-                                <td>General expense</td>
-                                <td>Cash</td>
-                                <td>2020-02-11</td>
-                                <td>Recharge of Rs 100</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Jeans Pants</td>
-                                <td>2500</td>
-                                <td>Clothing</td>
-                                <td>Bank</td>
-                                <td>2020-02-11</td>
-                                <td>Black LVD jeans pants</td>
-                            </tr>
+                            {
+                                this.state.incomes.map((income) => {
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>{income.incomeName}</td>
+                                        <td>{income.incomePrice}</td>
+                                        <td>{income.incomeCategory}</td>
+                                        <td>{income.incomeAccount}</td>
+                                        <td>{income.incomeDate}</td>
+                                        <td>{income.incomeNote}</td>
+                                        <td><Button varient="primary" type="submit" id={income.id} onclick={this.deleteHandler}>Delete</Button></td>
+			                            <td><Button varient="danger" type="submit" id={income.id} onclick={this.deleteHandler}>Edit</Button></td>
+                                    </tr>
+                                })
+                            }
                         </tbody>
                     </Table>
-                </Container>
+                </div>
                 <Footers />
             </div>
         )

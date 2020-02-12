@@ -5,6 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import {
 	Col, Row, Form, FormGroup, Label, Input
 } from 'reactstrap';
+import Footers from '../Footer/footer';
 
 
 class Registration extends React.Component {
@@ -107,7 +108,7 @@ class Registration extends React.Component {
 		.toLowerCase();
 		formdata.append('imageFile', this.state.image, imageName);
 		Axios
-		.post('http://localhost:3002/upload', formdata)
+		.post('http://localhost:3003/upload', formdata)
 		.then(res => {
 			console.log(res);
 			var data = {
@@ -121,7 +122,7 @@ class Registration extends React.Component {
 			}
 			
 	
-			Axios.post('http://localhost:3002/users/register', data, headers)
+			Axios.post('http://localhost:3003/users/register', data, headers)
 				.then((response) => {
 					console.log(response.data.status);
 					if (res.status === "Register successfully!!") {
@@ -192,11 +193,10 @@ class Registration extends React.Component {
                                 </div>
                                 <div className="custom-file">
                                     <input
-
                                         type="file"
-                                        // inputProps={{
-                                        //     accept: 'image/*'
-                                        // }}
+                                        inputProps={{
+                                            accept: 'image/*'
+                                        }}
                                         onChange={this.handleFileSelected}
                                         ref={fileInput => this.fileInput = fileInput}
                                         className="custom-file-input"
@@ -211,6 +211,7 @@ class Registration extends React.Component {
 					<button className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 design" type="submit">Register</button>
 				</Form>
 				<div className="text-center">Already have an account?<Link to='/'>Sign in</Link></div>
+				<Footers />
 			</div>
 		)
 	}

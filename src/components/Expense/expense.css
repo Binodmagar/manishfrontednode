@@ -1,14 +1,18 @@
+.expense{
+    margin-top: 5%;
+}
 .expenseForm{
     color: #999;
     /* color: burlywood; */
     border-radius: 10px;
     border-color:  rgba(10, 238, 67, 0.3);
-	margin-bottom: 10px;
-	background: #f2f3f7;
+    margin-bottom: 10px;
+    background: #f2f3f7;
+    margin-top: 2%;
 	/* box-shadow: 10px 20px 30px rgba(10, 238, 67, 0.3); */
     /* padding: 30px; */
     padding-left: 30px;
-    padding-top: 30px;
+    padding-top: 8px;
     padding-right: 30px;
     padding-bottom: 10px;
 }
@@ -16,6 +20,9 @@
 
 
 /* Show Income csss*/
+.expenseTop{
+    margin-top: 5%;
+}
 .showExpense{
     color: #999;
     /* color: burlywood; */
@@ -48,7 +55,6 @@ hr {
   }
 
   button.fas.fa-minus.btn.btn-danger.btn.btn-secondary {
-    margin-top: 20px;
     margin-bottom: 10px;
     border-radius: 0px;
     padding: 10px;

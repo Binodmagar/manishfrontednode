@@ -102,7 +102,9 @@ class Expense extends React.Component {
 
 	render() {
 		return (
-			<Container>
+			<Container className="expense">
+				<h5>Transaction</h5>
+                <hr></hr>
 				<div className="expenseForm">
 					<Form onSubmit={this.expenseSubmitHandler} className="expenseForm">
 						<h2>
@@ -132,7 +134,7 @@ class Expense extends React.Component {
 						<select
 							value={this.state.expenseCategory}
 							onChange={this.expenseCategoryChangeHandler}>
-							<option>Plese select expense category</option>
+							<option>Please select expense category</option>
 							<option value="food">Food</option>
 							<option value="health">Health</option>
 							<option value="general">General Expense</option>
@@ -141,6 +143,7 @@ class Expense extends React.Component {
 
 						<label>Acount:</label><br />
 						<select value={this.state.expenseAccount} onChange={this.expenseAccountChangeHandler}>
+						<option>Please select account</option>
 							<option value="Cash">Cash</option>
 							<option value="Cheque">Cheque</option>
 							<option value="Bank">Bank</option>

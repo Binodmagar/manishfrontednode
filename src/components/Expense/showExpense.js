@@ -41,12 +41,12 @@ class ShowExpense extends Component {
 
     render() {
         return (
-            <div>
+            <div className="expenseTop">
                 <h5>Expense Reports</h5>
                 <hr></hr>
                 <Button className=" fas fa-minus btn btn-danger"><Link to='/addExpense'>New transaction</Link></Button>
                 <div className="showExpenseHeader"><i className="far fa-chart-bar"></i>History of Expense</div>
-                <Container className="showExpense">
+                <div className="table-responsive">
                     <Table bordered>
                         <thead>
                             <tr>
@@ -78,7 +78,7 @@ class ShowExpense extends Component {
                             }
                         </tbody>
                     </Table>
-                </Container>
+                </div>
                 <Footers />
             </div>
         )
