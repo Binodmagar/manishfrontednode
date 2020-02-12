@@ -12,3 +12,52 @@
     padding-right: 30px;
     padding-bottom: 10px;
 }
+
+
+
+/* Show Income csss*/
+.showExpense{
+    color: #999;
+    /* color: burlywood; */
+    /* border-radius: 10px; */
+    border-color:  rgba(10, 238, 67, 0.3);
+	margin-bottom: 50px;
+	background: #f2f3f7;
+	/* box-shadow: 10px 20px 30px rgba(10, 238, 67, 0.3); */
+	padding: 30px;
+}
+
+h5{
+    font-size: 30px;
+    font-weight: bold;
+}
+h3{
+    text-align: center;
+    margin-bottom: 25px;
+
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+  }
+
+  button.fas.fa-minus.btn.btn-danger.btn.btn-secondary {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 0px;
+    padding: 10px;
+}
+
+.showExpenseHeader{
+    background-color: rgb(168, 29, 76);
+    color: white;
+    /* margin: 5px; */
+    padding: 10px;
+    font-weight: bold;
+}
