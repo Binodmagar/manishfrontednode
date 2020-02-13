@@ -24,6 +24,16 @@ class ShowIncome extends Component {
         }
     }
 
+    deleteHandler = (incomeid) => {
+        console.log(incomeid);
+        var cdelete = confirm("You want to delete?");
+        if(cdelete){
+            Axios.delete('http://localhost:3003/incomes/' + incomeid);
+            // location.reload();
+        }else{
+            return false;
+        }
+    }
     componentDidMount() {
         Axios.get('http://localhost:3003/incomes', { headers: { Authorization: 'Bearer ' + this.state.token } })
             .then((response) => {
@@ -40,6 +50,7 @@ class ShowIncome extends Component {
     
 
     render() {
+        // const{incomes} = this.state
         return (
             <div className="incomeTop">
                 <h5>Incomes Reports</h5>
@@ -50,7 +61,6 @@ class ShowIncome extends Component {
                     <Table className="table table-bordered">
                         <thead>
                             <tr>
-                                <th>S.No.</th>
                                 <th>Income Name</th>
                                 <th>Price (Rs)</th>
                                 <th>Category</th>
@@ -62,19 +72,15 @@ class ShowIncome extends Component {
                         </thead>
                         <tbody>
                             {
-                                this.state.incomes.map((income) => {
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>{income.incomeName}</td>
+                                this.state.incomes.map(income => (<tr key={income.id}>
+                                     <td>{income.incomeName}</td>
                                         <td>{income.incomePrice}</td>
                                         <td>{income.incomeCategory}</td>
                                         <td>{income.incomeAccount}</td>
                                         <td>{income.incomeDate}</td>
                                         <td>{income.incomeNote}</td>
-                                        <td><Button varient="primary" type="submit" id={income.id} onclick={this.deleteHandler}>Delete</Button></td>
-			                            <td><Button varient="danger" type="submit" id={income.id} onclick={this.deleteHandler}>Edit</Button></td>
-                                    </tr>
-                                })
+                                        <td><Button varient="primary" onClick={() => this.deleteHandler(income._id)}>Delete</Button></td>
+                                </tr>))
                             }
                         </tbody>
                     </Table>
