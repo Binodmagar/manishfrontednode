@@ -11,33 +11,39 @@ class ShowExpense extends Component {
 
         this.state = {
             expenses: [],
-            token: ''
-            
-        }
-    }
+            token: '',
+            config: {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('user_token')}` }
+            }
 
-    componentWillMount() {
-        if (localStorage.getItem('user_token')) {
-            this.setState({ token: localStorage.getItem('user_token') });
-        } else {
-            this.setState({ notLoggedIn: true });
         }
     }
 
     componentDidMount() {
-        Axios.get('http://localhost:3003/expenses', { headers: { Authorization: 'Bearer ' + this.state.token } })
+        Axios.get('http://localhost:3003/expenses', this.state.config)
             .then((response) => {
                 console.log(response.data);
-                
                 this.setState({
                     expenses: response.data
-                })              
+                })
             })
             .catch((err) => {
                 console.log(err);
             })
     }
-    
+
+    deleteHandler = expenseid => {
+        console.log(expenseid);
+        var deleteExpense = confirm("You sure want to delete expense?");
+
+        if (deleteExpense) {
+            Axios.delete('http://localhost:3003/expenses/' + expenseid);
+            location.reload();
+        } else {
+            return false;
+        }
+
+    }
 
     render() {
         return (
@@ -50,7 +56,6 @@ class ShowExpense extends Component {
                     <Table bordered>
                         <thead>
                             <tr>
-                                <th>S.No.</th>
                                 <th>Expense Name</th>
                                 <th>Price (Rs)</th>
                                 <th>Category</th>
@@ -60,23 +65,20 @@ class ShowExpense extends Component {
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {
-                                this.state.expenses.map((expense) => {
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>{expense.expenseName}</td>
-                                        <td>{expense.expensePrice}</td>
-                                        <td>{expense.expenseCategory}</td>
-                                        <td>{expense.expenseAccount}</td>
-                                        <td>{expense.expenseDate}</td>
-                                        <td>{expense.expenseNote}</td>
-                                        <td><Button varient="primary" type="submit" id={expense.id} onclick={this.deleteHandler}>Delete</Button></td>
-			                            <td><Button varient="danger" type="submit" id={expense.id} onclick={this.deleteHandler}>Edit</Button></td>
-                                    </tr>
-                                })
-                            }
-                        </tbody>
+                        {this.state.expenses.map((expense) => {
+                            return<tbody key={expense.id}>
+                               <tr key={expense.id}>
+                                    <td>{expense.expenseName}</td>
+                                    <td>{expense.expensePrice}</td>
+                                    <td>{expense.expenseCategory}</td>
+                                    <td>{expense.expenseAccount}</td>
+                                    <td>{expense.expenseDate}</td>
+                                    <td>{expense.expenseNote}</td>
+                                    <td><Button varient="primary" onClick={() => this.deleteHandler(expense._id)}>Delete</Button>
+                                        <Button><Link to={`/editexpense/my/${expense._id}`}>Edit</Link></Button></td>
+                                </tr>
+                            </tbody>
+                        })}
                     </Table>
                 </div>
                 <Footers />
