@@ -31,7 +31,16 @@ class Income extends React.Component {
         }
     }
 
-
+    clearData = () =>{
+        this.setState({
+            incomeName: '',
+            incomePrice: '',
+            incomeCategory: '',
+            incomeAccount: '',
+            incomeDate: '',
+            incomeNote: '',
+        })
+    }
     incomeNameChangeHandler = (event) => {
         this.setState({ incomeName: event.target.value });
         if (event.target.value.length < 4) {
@@ -68,10 +77,6 @@ class Income extends React.Component {
 
     incomeSubmitHandler = (event) => {
         event.preventDefault();
-
-        // var headers = {
-        //     'Content-Type': 'application/json'
-        // }
         var data = {
             incomeName: this.state.incomeName,
             incomePrice: this.state.incomePrice,
@@ -85,6 +90,7 @@ class Income extends React.Component {
                 console.log(response.data.status);
                 if (response.status === 201) {
                     alert("Income added successfully!!")
+                    this.clearData();
                     this.setState({ redirect: true })
                 }
 
@@ -118,7 +124,7 @@ class Income extends React.Component {
                             <Input type="text"
                                 placeholder="Enter name"
                                 value={this.state.incomeName}
-                                onChange={this.incomeNameChangeHandler} />
+                                onChange={this.incomeNameChangeHandler} autoFocus required/>
                             <p>{this.state.validationMessagName}</p>
                         </FormGroup>
 
@@ -128,7 +134,7 @@ class Income extends React.Component {
                                 type="Number"
                                 placeholder="Enter price"
                                 value={this.state.incomePrice}
-                                onChange={this.incomePriceChangeHandler} />
+                                onChange={this.incomePriceChangeHandler} required />
                             <p>{this.state.validationMessagePrice} </p>
                         </FormGroup>
 
@@ -162,7 +168,7 @@ class Income extends React.Component {
                                 type="text"
                                 placeholder="Enter Note"
                                 value={this.state.incomeNote}
-                                onChange={this.incomeNoteChangeHandler} />
+                                onChange={this.incomeNoteChangeHandler} required/>
                             <p>{this.state.validationMessageNote}</p>
                         </FormGroup>
 

@@ -60,6 +60,7 @@ class Login extends React.Component {
 			})
 			.catch((err) => {
 				console.log(err);
+				alert("Email or password not match!");
 			})
 	}
 
@@ -76,7 +77,7 @@ class Login extends React.Component {
 					<h2>Login Here</h2>
 					<FormGroup className="design">
 						<Label>Email</Label>
-						<Input type="email" placeholder="Email ....." value={this.state.email} onChange={this.emailChangeHandler}  required/>
+						<Input type="email" placeholder="Email ....." value={this.state.email} onChange={this.emailChangeHandler} autoFocus required/>
 						<p>{this.state.validationEmail} </p>
 					</FormGroup>
 					<FormGroup className="design">

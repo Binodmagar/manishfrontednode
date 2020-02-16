@@ -4,6 +4,7 @@ import { Form, FormGroup, Input, Button, Label, CustomInput, Container } from 'r
 import ImageUploadButton from '../ImageButton/imageUpload'
 import Footers from '../Footer/footer'
 import './profile.css';
+import {Link} from 'react-router-dom';
 // import FileUploadButton from './FileUploadButton'
 
 export default class UserProfile extends Component {
@@ -76,12 +77,13 @@ export default class UserProfile extends Component {
 					</h2>
                         <FormGroup>
                                 <img className='img-thumbnail'
-                                    width='400' src={`http://localhost:3003/uploads/${this.state.user.image}`}
+                                    width='300' src={`http://localhost:3003/uploads/${this.state.user.image}`}
                                     alt="profile" />
-                                <CustomInput type='file' id='profilePic'
+                                {/* <CustomInput type='file' id='profilePic'
                                     onChange={this.handleFileSelect} />
                                 {this.state.selectedFile ? (<ImageUploadButton
-                                    uploadFile={this.uploadImage} />) : null}
+                                    uploadFile={this.uploadImage} />) : null} */}
+                                    <Button outline color="danger"><Link to="/">Log out</Link></Button>   
                             </FormGroup>
                             <FormGroup>
                                 <Label for='firstName'>First Name</Label>
@@ -89,37 +91,36 @@ export default class UserProfile extends Component {
                                     id="firstName"
                                     name='firstName'
                                     value={this.state.user.firstName}
-                                    onChange={(e) => this.handleChange(e)}
-                                />
+                                    onChange={(e) => this.handleChange(e)} required/>
                             </FormGroup>
                             <FormGroup>
                                 <Label for='lastName'>Last Name</Label>
                                 <Input type='text' id='lastName'
                                     name='lastName'
                                     value={this.state.user.lastName}
-                                    onChange={(e) => this.handleChange(e)} />
+                                    onChange={(e) => this.handleChange(e)} required/>
                             </FormGroup>
                             <FormGroup>
                                 <Label for='mobileNumber'>Mobile Number</Label>
                                 <Input type='Number' id='mobileNumber'
                                     name='mobileNumber'
                                     value={this.state.user.mobileNumber}
-                                    onChange={(e) => this.handleChange(e)} />
+                                    onChange={(e) => this.handleChange(e)} required/>
                             </FormGroup>
                             <FormGroup>
                                 <Label for='email'>Email</Label>
                                 <Input type='text' id='email'
                                     name='email'
                                     value={this.state.user.email}
-                                    onChange={(e) => this.handleChange(e)} />
+                                    onChange={(e) => this.handleChange(e)} required/>
                             </FormGroup>
                             
                             <FormGroup>
                                 <Label for='password'>Password</Label>
-                                <Input type='text' id='password'
+                                <Input type='password' id='password'
                                     name='password'
                                     value={this.state.user.password}
-                                    onChange={(e) => this.handleChange(e)} />
+                                    onChange={(e) => this.handleChange(e)} required/>
                             </FormGroup>
                             <Button color='danger' onClick={this.updateUser} block>Update User</Button>
                         </Form>

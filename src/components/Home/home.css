@@ -1,79 +1,11 @@
-/* body {
-    margin: 0;
-    font-family: "Lato", sans-serif;
-  }
-  
-  .sidebar {
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-  }
-  
-  .sidebar a {
-    display: block;
-    color: black;
-    padding: 16px;
-    text-decoration: none;
-  }
-   
-  .sidebar a.active {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .sidebar a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-  }
-  
-  div.content {
-    margin-left: 200px;
-    padding: 1px 16px;
-    height: 1000px;
-  }
-  
-  @media screen and (max-width: 700px) {
-    .sidebar {
-      width: 100%;
-      height: auto;
-      position: relative;
-    }
-    .sidebar a {float: left;}
-    div.content {margin-left: 0;}
-  }
-  
-  @media screen and (max-width: 400px) {
-    .sidebar a {
-      text-align: center;
-      float: none;
-    }
-  } */
+
 
 @charset "ISO-8859-1";
 
 @import url("https://use.fontawesome.com/releases/v5.0.11/css/all.css");
-/* 
-.Button {
-	height: 50px;
-	position: relative;
-	background: #ccc;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 0px;
-	left: 0px;
-	right: 0px;
-	width: 100%;
-	overflow: hidden;
-} */
-
 .nav-side-menu {
   /* overflow: auto; */
   font-family: verdana;
-  font-size: 12px;
   font-weight: 200;
   background-color: #2e353d;
   position: fixed;
@@ -203,7 +135,16 @@
     display: block;
   }
 }
-/* body {
-  margin: 0px;
-  padding: 0px;
-} */
+
+
+.dashboard{
+  margin-top: 5%;
+}
+
+.cardDesign {
+  display: -webkit-inline-box;
+  margin-top: 3%;
+}
+.expenseCard.card {
+  margin-right: 30px;
+}

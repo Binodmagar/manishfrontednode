@@ -11,8 +11,6 @@ import Footer from '../Footer/footer';
 class Expense extends React.Component {
 	constructor() {
 		super()
-		// this.state = { value: 'Food' };
-
 		this.state = {
 			expenseName: '',
 			expensePrice: '',
@@ -30,6 +28,16 @@ class Expense extends React.Component {
 		}
 	}
 
+	clearData = () =>{
+        this.setState({
+            expenseName: '',
+			expensePrice: '',
+			expenseCategory: '',
+			expenseAccount: '',
+			expenseDate: '',
+			expenseNote: ''
+        })
+    }
 
 	expenseNameChangeHandler = (event) => {
 		this.setState({ expenseName: event.target.value });
@@ -82,17 +90,17 @@ class Expense extends React.Component {
 				console.log(res.data.status);
 				if (res.status === 201) {
 					alert('Expense added successfully!')
+					this.clearData();
 					this.setState({ redirect: true })
 				}
 
 			})
 			.catch((err) => {
 				console.log(err);
-
 			})
 	}
 
-	componentWillMount() {
+	UNSAFE_componentWillMount() {
 		if (localStorage.getItem('user_token')) {
 			this.setState({ token: localStorage.getItem('user_token') });
 		} else {
@@ -174,5 +182,4 @@ class Expense extends React.Component {
 		)
 	}
 }
-
 export default Expense

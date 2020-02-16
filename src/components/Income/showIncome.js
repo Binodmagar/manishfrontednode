@@ -11,46 +11,37 @@ class ShowIncome extends Component {
 
         this.state = {
             incomes: [],
-            token: ''
-            
-        }
-    }
+            token: '',
+            config: {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('user_token')}` }
+            }
 
-    componentWillMount() {
-        if (localStorage.getItem('user_token')) {
-            this.setState({ token: localStorage.getItem('user_token') });
-        } else {
-            this.setState({ notLoggedIn: true });
         }
     }
 
     deleteHandler = (incomeid) => {
         console.log(incomeid);
         var cdelete = confirm("You want to delete?");
-        if(cdelete){
+        if (cdelete) {
             Axios.delete('http://localhost:3003/incomes/' + incomeid);
-            // location.reload();
-        }else{
+            alert("Income delete successfully!!")
+        } else {
             return false;
         }
     }
     componentDidMount() {
-        Axios.get('http://localhost:3003/incomes', { headers: { Authorization: 'Bearer ' + this.state.token } })
+        Axios.get('http://localhost:3003/incomes', this.state.config)
             .then((response) => {
                 console.log(response.data);
-                
                 this.setState({
                     incomes: response.data
-                })              
+                })
             })
             .catch((err) => {
                 console.log(err);
             })
     }
-    
-
     render() {
-        // const{incomes} = this.state
         return (
             <div className="incomeTop">
                 <h5>Incomes Reports</h5>
@@ -70,19 +61,20 @@ class ShowIncome extends Component {
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {
-                                this.state.incomes.map(income => (<tr key={income.id}>
-                                     <td>{income.incomeName}</td>
-                                        <td>{income.incomePrice}</td>
-                                        <td>{income.incomeCategory}</td>
-                                        <td>{income.incomeAccount}</td>
-                                        <td>{income.incomeDate}</td>
-                                        <td>{income.incomeNote}</td>
-                                        <td><Button varient="primary" onClick={() => this.deleteHandler(income._id)}>Delete</Button></td>
-                                </tr>))
-                            }
-                        </tbody>
+                        {this.state.incomes.map((income) => {
+                            return<tbody key={income.id}>
+                               <tr key={income.id}>
+                                    <td>{income.incomeName}</td>
+                                    <td>{income.incomePrice}</td>
+                                    <td>{income.incomeCategory}</td>
+                                    <td>{income.incomeAccount}</td>
+                                    <td>{income.incomeDate}</td>
+                                    <td>{income.incomeNote}</td>
+                                    <td><Button outline color="danger" onClick={() => this.deleteHandler(income._id)}>Delete</Button>
+                                    <Button outline color="info"><Link to={`/editincome/myincome/${income._id}`}>Edit</Link></Button></td>
+                                </tr>
+                            </tbody>
+                        })}
                     </Table>
                 </div>
                 <Footers />

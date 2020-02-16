@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table, Container, Button } from 'reactstrap';
 import Footers from '../Footer/footer';
 import './expense.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Axios from 'axios';
 
 class ShowExpense extends Component {
@@ -14,7 +14,8 @@ class ShowExpense extends Component {
             token: '',
             config: {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('user_token')}` }
-            }
+            },
+            redirect: false
 
         }
     }
@@ -38,14 +39,19 @@ class ShowExpense extends Component {
 
         if (deleteExpense) {
             Axios.delete('http://localhost:3003/expenses/' + expenseid);
-            location.reload();
+            alert("Expense delete successfully!!")
+            this.setState({redirect: true})
         } else {
             return false;
         }
-
     }
 
     render() {
+        if(this.state.redirect){
+            return(
+				<Redirect to='/showExpense' />
+			)
+        }
         return (
             <div className="expenseTop">
                 <h5>Expense Reports</h5>
@@ -74,8 +80,8 @@ class ShowExpense extends Component {
                                     <td>{expense.expenseAccount}</td>
                                     <td>{expense.expenseDate}</td>
                                     <td>{expense.expenseNote}</td>
-                                    <td><Button varient="primary" onClick={() => this.deleteHandler(expense._id)}>Delete</Button>
-                                        <Button><Link to={`/editexpense/my/${expense._id}`}>Edit</Link></Button></td>
+                                    <td><Button outline color="danger" onClick={() => this.deleteHandler(expense._id)}>Delete</Button>
+                                        <Button outline color="info"><Link to={`/editexpense/my/${expense._id}`}>Edit</Link></Button></td>
                                 </tr>
                             </tbody>
                         })}

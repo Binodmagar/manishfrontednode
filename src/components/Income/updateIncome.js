@@ -101,21 +101,27 @@ class Income extends React.Component {
             incomeDate: this.state.incomeDate,
             incomeNote: this.state.incomeNote
         }
-        Axios.put('http://localhost:3003/incomes/' + this.state.incomeId, data, { headers: { Authorization: 'Bearer ' + this.state.token } })
+        var updateIncome = confirm("Are you sure you want to update!");
+        if(updateIncome){
+            Axios.put('http://localhost:3003/incomes/' + this.state.incomeId, data, { headers: { Authorization: 'Bearer ' + this.state.token } })
             .then((response) => {
                 console.log(response.data.status);
                 if (response.status === 200) {
                     alert("Income added successfully!!")
                     this.setState({ redirect: true })
                 }
-
             })
             .catch((err) => {
                 console.log(err);
-
             })
+        }
     }
     render() {
+        if(this.state.redirect){
+            return(
+                <Redirect to='/showIncome' />
+            )
+        }
         return (
             <Container  className="income">
                 <h5>Transaction</h5>
